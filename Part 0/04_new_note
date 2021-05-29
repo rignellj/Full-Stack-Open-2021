@@ -1,0 +1,7 @@
+new_note
+selain->palvelin: [... content: {note: "this is the new note"}], Request Method: POST
+Request URL: https://studies.cs.helsinki.fi/exampleapp/new_note
+selain pyytää palvelinta tallentamaan uuden muistiinpanon
+
+tämän jälkeen haetaan palvelimelta kaikki tiedostot joita tarvitaan
+sivun renderöintiin

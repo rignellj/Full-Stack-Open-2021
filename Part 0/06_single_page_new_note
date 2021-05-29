@@ -1,0 +1,17 @@
+selain->palvelin: Request Method: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+response: {"message":"note created"}
+
+tämä koodi vastaa siitä ettei sivua ladata uudelleen, kun formi tallentaa:
+  form.onsubmit = function (e) {
+    e.preventDefault()
+	...
+  }
+
+lisäksi tämä koodi tallentaa uuden noten notes taulukkoon
+notes.push(note)
+    
+tämä koodi renderöi listan uudelleen
+redrawNotes()
+
+jonka jälkeen note lähetään palvelimelle
+sendToServer(note)

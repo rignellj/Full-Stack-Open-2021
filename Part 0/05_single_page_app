@@ -1,0 +1,14 @@
+selain->palvelin: Request Method: GEThttps://studies.cs.helsinki.fi/exampleapp/spa
+palvelin->selain: spa-HTML koodi
+selain->palvelin: Request Method: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin->selain: main.css
+selain->palvelin: Request Method: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+palvelin->selain: spa.js
+
+aletaan suorittaa spa.js koodia
+selain->palvelin: xhttp.open("GET", "/exampleapp/data.json", true)
+palvelin->selain: /exampleapp/data.json
+
+selain alkaa suorittaa js koodia
+
+renderöidään lista, kun readyState ja status 200
