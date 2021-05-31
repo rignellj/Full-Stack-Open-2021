@@ -22,7 +22,9 @@ const Content = ({ parts }) => {
 
 const Course = ({ course }) => {
 	const reducer = (accumulator, currentValue) => {
-		return {exercises: accumulator.exercises + currentValue.exercises};
+		return {
+			exercises: accumulator.exercises + currentValue.exercises
+		};
 	};
 	const { name, parts } = course;
 	const { exercises } = parts.reduce(reducer);
