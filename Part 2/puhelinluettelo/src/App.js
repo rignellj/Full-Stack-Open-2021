@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
@@ -6,17 +7,14 @@ import Filter from './components/Filter';
 import './App.css';
 
 const App = () => {
-  const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456' }
-  ]);
+  const [ persons, setPersons ] = useState([]);
   const [ newName, setNewName ] = useState('');
   const [ newNumber, setNewNumber ] = useState('');
   const [ filterName, setFilterName ] = useState('');
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    const personArray = persons.filter(person => person.name === newName.trim());
-    const { length } = personArray;
+    const { length } = persons.filter(person => person.name === newName.trim());
 
     if (length === 0) {
       const newAddress = {
@@ -31,17 +29,18 @@ const App = () => {
     setNewNumber('');
   };
 
-  const onNameChangeHandler = (event) => {
-    setNewName(event.target.value);
-  };
+  const onNameChangeHandler = (event) => setNewName(event.target.value);
   
-  const onNumberChangeHandler = (event) => {
-    setNewNumber(event.target.value);
-  };
+  const onNumberChangeHandler = (event) => setNewNumber(event.target.value);
 
-  const filterCHangeHandler = (event) => {
-    setFilterName(event.target.value);
-  };
+  const filterCHangeHandler = (event) => setFilterName(event.target.value);
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/persons')
+    .then(res => {
+        setPersons(res.data);
+    });
+  }, []);
 
   return (
    <React.Fragment>
