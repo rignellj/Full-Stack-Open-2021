@@ -1,30 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
+import service from './services/address';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
 import Filter from './components/Filter';
+import Notification from './components/Notification';
 import './App.css';
 
 const App = () => {
-  const [ persons, setPersons ] = useState([]);
+  const [ persons, setPersons ] = useState(undefined);
   const [ newName, setNewName ] = useState('');
   const [ newNumber, setNewNumber ] = useState('');
   const [ filterName, setFilterName ] = useState('');
+  const [ notification, setNotification ] = useState([null, null]);
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    const { length } = persons.filter(person => person.name === newName.trim());
+    const filteredPersons = persons.filter(person => person.name === newName.trim());
+    const { length } = filteredPersons;
 
     if (length === 0) {
       const newAddress = {
         name: newName,
         number: newNumber
       };
-      setPersons(persons.concat(newAddress));
+      service
+      .create(newAddress)
+      .then(res => {
+        setPersons(persons.concat(res.data));
+      })
+      setNotification([`Added ${newAddress.name}`, 'added']);
     } else {
-      alert(`${newName.trim()} is already added to phonebook`);
+      const confirm = window.confirm(`${newName.trim()} is already added to phonebook, replace the old with a new one?`);
+      const person = filteredPersons[0];
+      
+      if (confirm) {
+        const updatedAddress = {
+          name: newName.trim(),
+          number: newNumber
+        };
+        service
+        .update(person.id, updatedAddress)
+        .then(res => {
+          console.log(res.data);
+          setNotification([`Number was changed for ${updatedAddress.name}`, 'changed']);
+        })
+        .catch(err => {
+          setNotification([`Address ${updatedAddress.name} was already deleted from server`, null]);
+        });
+      }
     }
+    setTimeout(() => {
+      setNotification([null, null])
+      }, 5000)
     setNewName('');
     setNewNumber('');
   };
@@ -36,7 +64,8 @@ const App = () => {
   const filterCHangeHandler = (event) => setFilterName(event.target.value);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons')
+    service
+    .getAll()
     .then(res => {
         setPersons(res.data);
     });
@@ -45,6 +74,7 @@ const App = () => {
   return (
    <React.Fragment>
      <h2>Phonebook</h2>
+     <Notification notification={notification} />
      <Filter
         filterCHangeHandler={filterCHangeHandler}
         filterName={filterName}
@@ -59,8 +89,10 @@ const App = () => {
       />
       <h2>Numbers</h2>
       <Persons
+        setNotification={setNotification}
         filterName={filterName}
         persons={persons}
+        setPersons={setPersons}
       />
    </React.Fragment>
   );

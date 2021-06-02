@@ -2,28 +2,38 @@ import React from 'react';
 
 import Person from './Person';
 
-const Persons = ({ persons, filterName  }) => {
+const Persons = ({ persons, filterName, setPersons, setNotification  }) => {
 	let content;
+	if (persons === undefined) {
+		return <p>Loading...</p>;
+	}
 	const filteredPersons = persons.filter(person => person.name.includes(filterName));
-
 	if (filteredPersons.length || filterName) {
 		content = (
 			filteredPersons.map(person => (
 				<Person
-				key={person.name}
-				name={person.name}
-				number={person.number}
+					setNotification={setNotification}
+					setPersons={setPersons}
+					id={person.id}
+					key={person.name}
+					name={person.name}
+					number={person.number}
 				/>
-			)));
+			)
+		));
 	} else {
 		content = (
 			persons.map(person => (
 				<Person
-				key={person.name}
-				name={person.name}
-				number={person.number}
+					setNotification={setNotification}
+					setPersons={setPersons}
+					id={person.id}
+					key={person.name}
+					name={person.name}
+					number={person.number}
 				/>
-			)));
+			)
+		));
 	}
 
 	return (

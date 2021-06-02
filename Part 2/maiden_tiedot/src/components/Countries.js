@@ -25,11 +25,7 @@ const Countries = ({ countries, countryName, setCountryName }) => {
   
 	  )))
 	} else if (length === 1) {
-	  content = (
-		<Country
-		  key={filteredCountries[0].name}
-		  country={filteredCountries[0]}
-		/>)
+	  content = <Country country={filteredCountries[0]} />
 	}
 	return (
 	  <React.Fragment>

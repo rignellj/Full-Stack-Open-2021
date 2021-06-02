@@ -2,6 +2,7 @@ import React from 'react';
 
 const Weather = ({ weather, capital }) => {
 	let content;
+	
 	if (weather === undefined) {
 	  content = <p></p>
 	} else {
