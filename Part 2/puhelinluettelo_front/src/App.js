@@ -46,6 +46,7 @@ const App = () => {
           setNotification([`Number was changed for ${updatedAddress.name}`, 'changed']);
         })
         .catch(err => {
+          console.log(err);
           setNotification([`Address ${updatedAddress.name} was already deleted from server`, null]);
         });
       }
@@ -67,6 +68,7 @@ const App = () => {
     service
     .getAll()
     .then(res => {
+        console.log(res);
         setPersons(res.data);
     });
   }, []);
