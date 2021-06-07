@@ -28,8 +28,11 @@ const App = () => {
       .create(newAddress)
       .then(res => {
         setPersons(persons.concat(res.data));
+        setNotification([`Added ${newAddress.name}`, 'added']);
       })
-      setNotification([`Added ${newAddress.name}`, 'added']);
+      .catch(err => {
+        setNotification([`${err.response.data.error}`, null]);
+      })
     } else {
       const confirm = window.confirm(`${newName.trim()} is already added to phonebook, replace the old with a new one?`);
       const person = filteredPersons[0];
@@ -70,6 +73,9 @@ const App = () => {
     .then(res => {
         console.log(res);
         setPersons(res.data);
+    })
+    .catch(err => {
+      console.log(err);
     });
   }, []);
 
