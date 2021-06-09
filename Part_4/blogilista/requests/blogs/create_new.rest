@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpyaWduZWxsIiwiaWQiOiI2MGJmOGZkNzcwODBkNjRjNGEyNzg2NWQiLCJpYXQiOjE2MjMyMzc2MzIsImV4cCI6MTYyMzI0MTIzMn0.PWULpoa3HWq9Po7kKyzM9-Mw4hYbwYdIQXYorZagMwQ
+
+{
+	"title": "8",
+	"author": "8",
+	"url": "www.com"
+}
