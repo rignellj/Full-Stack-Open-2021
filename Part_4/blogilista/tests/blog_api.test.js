@@ -27,20 +27,20 @@ describe('form', () => {
 		await api
 			.get(apiUrl)
 			.expect(200)
-			.expect('Content-Type', /application\/json/)
+			.expect('Content-Type', /application\/json/);
 	});
 });
 
 describe('blogs based tests', () => {
 	test('all blogs are returned', async () => {
 		const { body } = await api.get(apiUrl);
-	
+
 		expect(body).toHaveLength(initialBlogs.length);
 	});
 	test('a spesific url is within returned blogs', async () => {
 		const { body } = await api.get(apiUrl);
-		const contents = body.map(item => item.url)
-	
+		const contents = body.map(item => item.url);
+
 		expect(contents).toContain('www.com.www');
 	});
 	test('id property check', async () => {
@@ -57,7 +57,7 @@ describe('routes', () => {
 			.post(apiUrl)
 			.send(newBlog)
 			.expect(201)
-			.expect('Content-Type', /application\/json/)
+			.expect('Content-Type', /application\/json/);
 
 		const { body } = await api.get(apiUrl);
 		const titles = body.map(item => item.title);
@@ -68,22 +68,22 @@ describe('routes', () => {
 		const { body } = await api
 			.post(apiUrl)
 			.send(newBlogWithoutLikes)
-			.expect(201)
+			.expect(201);
 		expect(body.likes).toBe(0);
 	});
 	test('post request without url or title fails with 400 status code', async () => {
 		await api
 			.post(apiUrl)
 			.send(blogWithoutUrl)
-			.expect(400)
+			.expect(400);
 		await api
 			.post(apiUrl)
 			.send(blogWithoutTitle)
-			.expect(400)
+			.expect(400);
 		await api
 			.post(apiUrl)
 			.send(blogWithoutTitleOrUrl)
-			.expect(400)
+			.expect(400);
 	});
 	test('delete request returns 204 status code', async () => {
 		const { body } = await api
@@ -93,8 +93,8 @@ describe('routes', () => {
 		const { id } = body;
 		await api
 			.delete(apiUrl + '/' + id)
-			.expect(204)
-	})
+			.expect(204);
+	});
 	test('likes increase by one if blog is updated', async () => {
 		const { body } = await api
 			.post(apiUrl)

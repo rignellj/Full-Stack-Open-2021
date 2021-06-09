@@ -14,7 +14,7 @@ const initialBlogs = [
 		author: '3',
 		url: 'www.com.www'
 	},
-]
+];
 const newBlog = {
 	title: 'new blog can be added',
 	author: '4',
@@ -49,7 +49,7 @@ const blogToBeDeleted = {
 	author: '5',
 	url: 'www.fi.www',
 	likes: 2
-}
+};
 
 const apiUrl = '/api/blogs';
 
